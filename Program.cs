@@ -20,6 +20,15 @@ class Program
             return [a, b];
     }
 
+    private static void UpdateScore(bool correct){
+        if(correct){
+            userPoints++;
+        } else {
+            if(userPoints > 0) userPoints--;
+            else userPoints = 0;
+        }
+    }
+
     private static int GetOp(){
         var random = new Random();
         return random.Next(1, 5);
@@ -54,12 +63,10 @@ class Program
                     var correct = nums[0] + nums[1];
                     if (answer == correct){
                         Console.WriteLine("Correct!");
-                        userPoints++;
                     } else {
                         Console.WriteLine($"Incorrect! The correct answer is {correct}.");
-                        if(userPoints > 0) userPoints--;
-                        else userPoints = 0;
                     }
+                    UpdateScore(answer == correct);
                     break;
                 case 2: 
                     Console.WriteLine($"{nums[0]} - {nums[1]} = ?");
@@ -67,12 +74,10 @@ class Program
                     correct = nums[0] - nums[1];
                     if (answer == correct){
                         Console.WriteLine("Correct!");
-                        userPoints++;
                     } else {
                         Console.WriteLine($"Incorrect! The correct answer is {correct}.");
-                        if(userPoints > 0) userPoints--;
-                        else userPoints = 0;
                     }
+                    UpdateScore(answer == correct);
                     break;
                 case 3:
                     Console.WriteLine($"{nums[0]} * {nums[1]} = ?");
@@ -80,12 +85,10 @@ class Program
                     correct = nums[0] * nums[1];
                     if (answer == correct){
                         Console.WriteLine("Correct!");
-                        userPoints++;
                     } else {
                         Console.WriteLine($"Incorrect! The correct answer is {correct}.");
-                        if(userPoints > 0) userPoints--;
-                        else userPoints = 0;
                     }
+                    UpdateScore(answer == correct);
                     break;
                 case 4:
                     Console.WriteLine($"{nums[0]} / {nums[1]} = ?");
@@ -93,12 +96,10 @@ class Program
                     correct = nums[0] / nums[1];
                     if (answer == correct){
                         Console.WriteLine("Correct!");
-                        userPoints++;
                     } else {
                         Console.WriteLine($"Incorrect! The correct answer is {correct}.");
-                        if(userPoints > 0) userPoints--;
-                        else userPoints = 0;
                     }
+                    UpdateScore(answer == correct);
                     break;
                 case 5:
                     while (true){
@@ -123,12 +124,10 @@ class Program
                         };
                         if (answer == correct){
                             Console.WriteLine("Correct!");
-                            userPoints++;
                         } else {
                             Console.WriteLine($"Incorrect! The correct answer is {correct}.");
-                            if(userPoints > 0) userPoints--;
-                            else userPoints = 0;
                         }
+                        UpdateScore(answer == correct);
                         Console.WriteLine($"---> Current score is {userPoints} <---");
                         Console.WriteLine("Press enter to continue, or 5 to exit!");
                         if(Console.ReadLine() == "5"){
