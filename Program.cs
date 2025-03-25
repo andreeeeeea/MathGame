@@ -2,7 +2,9 @@
 
 class Program
 {
-    static int userPoints = 0;
+    private static int userPoints = 0;
+    private static List<String> previousGames = new List<String>();
+
     private static List<int> GetNums(int op){
         List<int> nums = new List<int>();
             var random = new Random();
@@ -29,6 +31,10 @@ class Program
         }
     }
 
+    private static void UpdatePreviousGames(string game){
+        previousGames.Add(game);
+    }
+
     private static int GetOp(){
         var random = new Random();
         return random.Next(1, 5);
@@ -46,10 +52,11 @@ class Program
             Console.WriteLine("3. Multiplication");
             Console.WriteLine("4. Division");
             Console.WriteLine("5. Random Continuous Mode!");
-            Console.WriteLine("6. Exit");
+            Console.WriteLine("6. View Previous Games");
+            Console.WriteLine("7. Exit");
 
             var choice = Int32.Parse(Console.ReadLine());
-            if(choice < 1 || choice > 6){
+            if(choice < 1 || choice > 7){
                 Console.WriteLine("Invalid choice. Please try again.");
                 continue;
             }
@@ -67,6 +74,7 @@ class Program
                         Console.WriteLine($"Incorrect! The correct answer is {correct}.");
                     }
                     UpdateScore(answer == correct);
+                    UpdatePreviousGames($"{nums[0]} + {nums[1]} = {answer}");
                     break;
                 case 2: 
                     Console.WriteLine($"{nums[0]} - {nums[1]} = ?");
@@ -78,6 +86,7 @@ class Program
                         Console.WriteLine($"Incorrect! The correct answer is {correct}.");
                     }
                     UpdateScore(answer == correct);
+                    UpdatePreviousGames($"{nums[0]} - {nums[1]} = {answer}");
                     break;
                 case 3:
                     Console.WriteLine($"{nums[0]} * {nums[1]} = ?");
@@ -89,6 +98,7 @@ class Program
                         Console.WriteLine($"Incorrect! The correct answer is {correct}.");
                     }
                     UpdateScore(answer == correct);
+                    UpdatePreviousGames($"{nums[0]} * {nums[1]} = {answer}");
                     break;
                 case 4:
                     Console.WriteLine($"{nums[0]} / {nums[1]} = ?");
@@ -100,6 +110,7 @@ class Program
                         Console.WriteLine($"Incorrect! The correct answer is {correct}.");
                     }
                     UpdateScore(answer == correct);
+                    UpdatePreviousGames($"{nums[0]} / {nums[1]} = {answer}");
                     break;
                 case 5:
                     while (true){
@@ -128,6 +139,7 @@ class Program
                             Console.WriteLine($"Incorrect! The correct answer is {correct}.");
                         }
                         UpdateScore(answer == correct);
+                        UpdatePreviousGames($"{randomNums[0]} {opSymbol} {randomNums[1]} = {answer}");
                         Console.WriteLine($"---> Current score is {userPoints} <---");
                         Console.WriteLine("Press enter to continue, or 5 to exit!");
                         if(Console.ReadLine() == "5"){
@@ -136,6 +148,17 @@ class Program
                     }
                     break;
                 case 6:
+                    if(previousGames.Count == 0){
+                        Console.WriteLine("No previous games to display.");
+                    }
+                    else {
+                        Console.WriteLine("Previous Games:");
+                        foreach (var game in previousGames){
+                            Console.WriteLine(game);
+                        }
+                    }
+                    break;
+                case 7:
                     Console.WriteLine("Thanks for playing!");
                     return;
             }
